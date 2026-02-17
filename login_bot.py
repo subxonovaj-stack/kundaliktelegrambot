@@ -4,7 +4,8 @@ from accounts import PARENTS
 LOGIN_URL = "https://login.emaktab.uz/login"
 
 
-def run_cycle(send_update):
+def run_login_cycle(bot, chat_id):
+
 
     with sync_playwright() as p:
 
@@ -27,7 +28,8 @@ def run_cycle(send_update):
             username = acc["username"]
             password = acc["password"]
 
-            send_update(f"Logging in: {username}")
+            bot.send_message(chat_id, f"Logging in: {username}")
+
 
             page.goto(LOGIN_URL)
 
@@ -71,7 +73,7 @@ def run_cycle(send_update):
                 browser.close()
                 return "captcha"
 
-            send_update(f"Logged in: {username}")
+            bot.send_message(f"Logged in: {username}")
 
             # Small delay to simulate real user activity
             page.wait_for_timeout(5000)
@@ -87,7 +89,8 @@ def run_cycle(send_update):
                     return "captcha"
 
             page.wait_for_selector("input[name='login']")
-            send_update(f"Logged out: {username}")
+            bot.send_message(chat_id, f"Logged out: {username}")
+
 
         browser.close()
         return "finished"
