@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 pyTelegramBotAPI
 playwright
 flask
 
+=======
+pyTelegramBotAPI
+playwright
+flask
+>>>>>>> 2508e66 (update bot to webhook version)
