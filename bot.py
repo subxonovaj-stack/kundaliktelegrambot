@@ -3,7 +3,7 @@ from flask import Flask, request
 import telebot
 from login_bot import run_login_cycle
 
-BOT_TOKEN = os.environ.get("8412268679:AAGQthhZaYbriePaFwX4OXdZVvnxf-iRF0Y")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 RENDER_EXTERNAL_URL = os.environ.get("RENDER_EXTERNAL_URL")
 print("BOT TOKEN EXISTS:", bool(BOT_TOKEN))
 
@@ -42,4 +42,5 @@ if __name__ == "__main__":
     bot.set_webhook(url=f"{RENDER_EXTERNAL_URL}/{BOT_TOKEN}")
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
