@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 services:
   - type: worker
     name: telegram-school-bot
@@ -8,14 +7,3 @@ services:
       playwright install chromium
     startCommand: python bot.py
     plan: free
-=======
-services:
-  - type: worker
-    name: telegram-school-bot
-    env: python
-    buildCommand: |
-      pip install -r requirements.txt
-      playwright install chromium
-    startCommand: python bot.py
-    plan: free
->>>>>>> 2508e66 (update bot to webhook version)
