@@ -22,18 +22,17 @@ def run_automation(parents, notify_function):
                 page.click("input.login__submit.button_light-green")
 
                 page.wait_for_selector("form[name='logout']", timeout=8000)
-                page.wait_for_timeout(7000)
+                page.wait_for_timeout(5000)
 
-
-                notify_function(f"✅ Logged in: {username}")
+                notify_function(f"Logged in: {username}")
 
                 page.evaluate("document.logout.submit()")
                 page.wait_for_selector("input[name='login']")
 
-                notify_function(f"[ok] Logged out: {username}")
+                notify_function(f"Logged out: {username}")
 
             except TimeoutError:
-                notify_function(f"[WARNING] Error with {username}")
+                notify_function(f"Error with {username}")
 
         browser.close()
         notify_function("🎉 Finished all accounts.")

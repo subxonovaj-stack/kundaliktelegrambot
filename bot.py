@@ -1,12 +1,13 @@
 import os
 from flask import Flask, request
 import telebot
-from login_bot import run_login_cycle
+from automation import run_automation
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 RENDER_EXTERNAL_URL = os.environ.get("RENDER_EXTERNAL_URL")
-print("BOT TOKEN EXISTS:", bool(BOT_TOKEN))
 
+# 🔒 PUT YOUR MOM'S TELEGRAM USER ID HERE
+ALLOWED_USER_ID = 123456789  # <-- CHANGE THIS
 
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
@@ -16,9 +17,26 @@ app = Flask(__name__)
 # ---------------------------
 @bot.message_handler(commands=['start'])
 def handle_start(message):
+
+    # 🔒 Restrict access
+    if message.from_user.id != ALLOWED_USER_ID:
+        bot.send_message(message.chat.id, "Access denied.")
+        return
+
     bot.send_message(message.chat.id, "Process started...")
-    run_login_cycle(bot, message.chat.id)
-    bot.send_message(message.chat.id, "All accounts finished.")
+
+    # List of parents (PUT REAL ACCOUNTS HERE)
+    parents = [
+        {"username": "parent1_login", "password": "parent1_password"},
+        {"username": "parent2_login", "password": "parent2_password"},
+    ]
+
+    # This function will send messages to Telegram
+    def notify(text):
+        bot.send_message(message.chat.id, text)
+
+    # Run automation
+    run_automation(parents, notify)
 
 # ---------------------------
 # WEBHOOK ROUTE
