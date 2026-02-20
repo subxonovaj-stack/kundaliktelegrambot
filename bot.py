@@ -8,10 +8,6 @@ print("BOT TOKEN EXISTS:", bool(BOT_TOKEN))
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# 🔥 DELETE OLD WEBHOOK (VERY IMPORTANT)
-bot.remove_webhook()
-
-# Prevent double execution
 is_running = False
 
 
